@@ -2755,7 +2755,7 @@ __metadata:
     typescript: ^4.9.4
     yargs: ^17.6.2
   bin:
-    foundry-anvil: ./bin/index.js
+    foundry-anvil: bin/index.cjs
   languageName: unknown
   linkType: soft
 

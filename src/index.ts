@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from "fs";
 import { join } from "path";
 import { cwd } from "process";
@@ -88,9 +90,10 @@ yargs(hideBin(process.argv))
           "Congrats! You just generated a module initialization!",
           "This was generated via: https://foundryvtt.com/article/module-development/",
           "Now be sure to run the following commands and get started developing!",
+          "-".repeat(80),
           `cd ${outDir}`,
           `${packageManager} install`,
-          "\n\n",
+          "-".repeat(80),
           "Be sure to visit the following link for module development information:",
           "https://foundryvtt.com/api/",
         ].join("\n")

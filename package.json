@@ -1,8 +1,8 @@
 {
   "name": "foundry-anvil",
-  "version": "1.0.0",
-  "main": "index.js",
-  "bin": "./bin/index.js",
+  "version": "1.0.5",
+  "main": "src/main.ts",
+  "bin": "bin/index.js",
   "license": "MIT",
   "packageManager": "yarn@3.3.0",
   "devDependencies": {
@@ -30,7 +30,8 @@
     "templates/.gitignore"
   ],
   "scripts": {
-    "build": "ncc build ./src/index.ts --out ./bin",
+    "build": "ncc build ./src/index.ts --out ./bin --target es3",
+    "build:2": "yarn dlx esbuild src/index.ts --bundle --outfile=bin/index.cjs --format=cjs --platform=node",
     "lint": "prettier --write ./",
     "dev": "yarn turbo build && node ./bin/index.js",
     "test": "jest"
