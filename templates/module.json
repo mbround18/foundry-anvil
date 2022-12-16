@@ -1,0 +1,8 @@
+{
+  "id": "{{name}}",
+  "title": "{{title}}",
+  "description": "{{description}}",
+  "authors": [{ "name": "{{author}}" }],
+  "version": "1.0.0",
+  "compatibility": { "minimum": "9", "verified": "10" }
+}
