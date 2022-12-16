@@ -3,7 +3,6 @@ import inquirer from "inquirer";
 export async function whichPackageManager(): Promise<{
   packageManager: string;
 }> {
-  console.timeLog("Watcher", "Asking which package manager");
   return inquirer.prompt([
     {
       type: "list",

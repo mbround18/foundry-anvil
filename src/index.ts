@@ -4,11 +4,12 @@ import { cwd } from "process";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { getModuleJsonVars } from "./ask/getModuleJsonVars";
+import { jsOrTs } from "./ask/jsOrTs";
 import { whichPackageManager } from "./ask/whichPackageManager";
+import { exitHandler } from "./exit";
 import { initializePackageManager } from "./mutations/initializePackageManager";
+import { updatePackageJson } from "./mutations/updatePackageJson";
 import { loader } from "./templates";
-
-// console.log(loadTemplate("templates/module.json.hbs")({ name: "banana" }));
 
 yargs(hideBin(process.argv))
   .scriptName("foundry-anvil")
@@ -37,15 +38,15 @@ yargs(hideBin(process.argv))
             `Woah! This directory already has files in it! We cannot initialize here! ${outDir}`
           );
         }
+      } else {
+        exitHandler(outDir);
       }
 
-      console.time("Watcher");
       const { packageManager } = await whichPackageManager();
-
-      initializePackageManager({ outDir, packageManager, name });
-
+      await initializePackageManager({ outDir, packageManager, name });
+      const { language } = await jsOrTs();
       // Write module.json
-      console.timeLog("Watcher", "here i am");
+
       const moduleJson = loader("module.json");
       const moduleJsonVars = await getModuleJsonVars();
       moduleJson.write(outDir, {
@@ -68,10 +69,31 @@ yargs(hideBin(process.argv))
         writeFileSync(join(outDir, projectDir, ".git-keep"), `# ${projectDir}`);
       }
 
+      await updatePackageJson({
+        outDir,
+        packageManager,
+        language,
+      });
+
       // Write Translation Dir
       writeFileSync(
         join(outDir, "lang", "en.json"),
         JSON.stringify({ example: "of translation" }, undefined, 2)
+      );
+
+      loader(".gitignore").write(outDir, {});
+
+      console.log(
+        [
+          "Congrats! You just generated a module initialization!",
+          "This was generated via: https://foundryvtt.com/article/module-development/",
+          "Now be sure to run the following commands and get started developing!",
+          `cd ${outDir}`,
+          `${packageManager} install`,
+          "\n\n",
+          "Be sure to visit the following link for module development information:",
+          "https://foundryvtt.com/api/",
+        ].join("\n")
       );
     }
   )

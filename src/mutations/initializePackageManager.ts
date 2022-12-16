@@ -1,6 +1,16 @@
 import { spawnSync } from "child_process";
-import { existsSync, mkdirSync } from "fs";
-export function initializePackageManager({
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  renameSync,
+  writeFileSync,
+} from "fs";
+import { set } from "lodash";
+import { join } from "path";
+import { jsOrTs, jsOrTsOptions } from "../ask/jsOrTs";
+import { loader } from "../templates";
+export async function initializePackageManager({
   outDir,
   packageManager,
   name,
@@ -9,11 +19,10 @@ export function initializePackageManager({
   packageManager: string;
   outDir: string;
 }) {
-  console.timeLog("Watcher", "checking dir");
   if (!existsSync(outDir)) {
     mkdirSync(outDir, { recursive: true });
   }
-  console.timeLog("Watcher", "spawning yarn command");
+
   let command;
   if (packageManager === "yarn") {
     command = `${packageManager} init ${name} ${outDir} --yes --non-interative`;
@@ -21,11 +30,13 @@ export function initializePackageManager({
     command = "npm init --yes";
   }
 
-  const { stderr: yarnInitError } = spawnSync(command, { shell: true });
-  if (yarnInitError) {
-    if (yarnInitError.toString().toLowerCase().includes("error")) {
-      console.error(yarnInitError.toString());
-      throw new Error("Yarn ran into an error! Exiting now.");
+  const { stderr: initError } = spawnSync(command, { shell: true });
+  if (initError) {
+    if (initError.toString().toLowerCase().includes("error")) {
+      console.error(initError.toString());
+      throw new Error(`${packageManager} ran into an error! Exiting now.`);
     }
+  } else {
+    spawnSync(`${packageManager} install --dev @vercel/ncc`);
   }
 }
