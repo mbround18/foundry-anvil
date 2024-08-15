@@ -13,7 +13,7 @@
     "@types/lodash": "^4.14.191",
     "@types/node": "^18.11.15",
     "@types/yargs": "^17.0.17",
-    "@vercel/ncc": "^0.36.0",
+    "@vercel/ncc": "^0.38.0",
     "colors": "^1.4.0",
     "handlebars": "^4.7.7",
     "inquirer": "^9.1.4",
