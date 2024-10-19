@@ -4,7 +4,7 @@
   "main": "src/main.ts",
   "bin": "bin/index.js",
   "license": "MIT",
-  "packageManager": "yarn@3.3.0",
+  "packageManager": "yarn@3.8.6",
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-typescript": "^7.18.6",
