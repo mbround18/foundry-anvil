@@ -1785,9 +1785,9 @@ __metadata:
   linkType: hard
 
 "@types/lodash@npm:^4.14.191":
-  version: 4.14.191
-  resolution: "@types/lodash@npm:4.14.191"
-  checksum: ba0d5434e10690869f32d5ea49095250157cae502f10d57de0a723fd72229ce6c6a4979576f0f13e0aa9fbe3ce2457bfb9fa7d4ec3d6daba56730a51906d1491
+  version: 4.17.28
+  resolution: "@types/lodash@npm:4.17.28"
+  checksum: 171e814bfd6503c2f42769ead18e3f4abaec214dc4783d7d94cb834afe3235370f2c7747173f4c7dc5eeaf9fd86c0c31e016b9f659f11f48fdea02494ec60fab
   languageName: node
   linkType: hard
 
@@ -2755,7 +2755,7 @@ __metadata:
     typescript: ^4.9.4
     yargs: ^17.6.2
   bin:
-    foundry-anvil: bin/index.cjs
+    foundry-anvil: bin/index.js
   languageName: unknown
   linkType: soft
 
